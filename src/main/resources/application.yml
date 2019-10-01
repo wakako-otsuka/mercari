@@ -1,0 +1,18 @@
+spring:
+  datasource:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/merucari
+      username: postgres
+      password: postgres
+
+  mail:
+      host: smtp.gmail.com
+      port: 587
+      username: s01110002e1117@gmail.com
+      password: enfuiywuweydamoq
+      properties.mail.smtp.auth: true
+      properties.mail.smtp.starttls.enable: true
+
+server:
+  servlet:
+      context-path: /mercari

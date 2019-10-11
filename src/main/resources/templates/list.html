@@ -18,6 +18,8 @@
 	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
 	crossorigin="anonymous" />
 <link rel="stylesheet" th:href="@{/css/mercari.css}">
+<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+
 <!-- script -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -31,9 +33,10 @@
     $(function(){
     	$("#dai").change(function(){
     		var value=$("#dai option:selected").val();
-    		$.get("./category/dai/"+value,function(data){
+    		$.get("./category/showList/"+value,function(data){
     			var obj=$.parseJSON(data);
     			$("#tyu").html("");
+    			$("#tyu").append("<option value=''>--</option>");
     			for(var i=0;i<obj.length;i++){
     				$("#tyu").append("<option value='"+obj[i].itemValue+"'>"+obj[i].itemLabel+"</option>");
     			}
@@ -44,19 +47,18 @@
 		var value1=$("#dai option:selected").val();
 		var value2=$("#tyu option:selected").val();
 		
-		$.get("./category/tyu/"+value1+"/"+value2,function(data){
+		$.get("./category/showList/"+value1+"/"+value2,function(data){
 			var obj=$.parseJSON(data);
 			$("#syou").html("");
+			$("#syou").append("<option value=''>--</option>")
 			for(var i=0;i<obj.length;i++){
 				$("#syou").append("<option value='"+obj[i].itemValue+"'>"+obj[i].itemLabel+"</option>");
 			}
 		});			
    	});
  });
-   
     
-    
-    
+  
     </script>
 
 <title>Rakus Items</title>
@@ -97,7 +99,7 @@
 		<div id="forms">
 			<form th:action="@{/showList}" class="form-inline" role="form">
 				<div class="form-group">
-					<input type="input" class="form-control" id="name"
+					<input type="input" class="form-control" id="name"name="itemName"
 						placeholder="item name" />
 				</div>
 				<div class="form-group">
@@ -105,18 +107,25 @@
 				</div>
 				<div class="form-group">
 
-					<select class="form-control" id="dai" name="name1">
+					<select class="form-control" id="dai" name="name1" >
+					<option value=" " id=dai>--</option>
 						<option th:each="category:${daiCategoryList}" 
 							th:value="${category.name}" th:text="${category.name}"
 							th:inline="text">- parentCategory -</option>
-					</select> <select class="form-control" id="tyu" name="name2">
-						<option th:each="category:${tyuCategoryList}"
-							th:value="${category.name2}" th:text="${category.name}" 
-							th:inline="text">- childCategory -</option>
-					</select> <select class="form-control" id="syou" name="name3">
-						<option th:each="category:${syouCategoryList}"
+					</select> 
+					
+					<select class="form-control" id="tyu" name="name2">
+					<option value=" ">--</option>
+						<option  th:each="category:${tyuCategoryList}"
 							th:value="${category.name}" th:text="${category.name}" 
-							th:inline="text">-grandChild-</option>
+							th:inline="text"></option>
+					</select> 
+					
+					<select class="form-control" id="syou" name="name3">
+					<option value=" ">--</option>
+					<option  th:each="category:${syouCategoryList}"
+							th:value="${category.name}" th:text="${category.name}" 
+							th:inline="text"></option>
 					</select>
 
 				</div>
@@ -124,7 +133,7 @@
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="brand" />
+					<input type="text" class="form-control" placeholder="brand" name="brand"/>
 				</div>
 				<div class="form-group"></div>
 				<button type="submit" class="btn btn-default">
@@ -138,9 +147,9 @@
 			<nav class="page-nav">
 				<ul class="pager">
 
-					<li class="previous"><a th:href="@{'/?page='+${nowPage-1}}">&larr;
+					<li class="previous"><a th:href="@{'showList?page='+${nowPage-1}}">&larr;
 							prev</a></li>
-					<li class="next"><a th:href="@{'/?page='+${nowPage+1}}">&larr;
+					<li class="next"><a th:href="@{'showList?page='+${nowPage+1}}">&larr;
 							next</a></li>
 
 				</ul>
@@ -162,14 +171,31 @@
 
 				<tbody>
 					<tr th:each="item:${itemList}">
-						<td class="item-name" th:text="${item.name}"><a
-							href="./detail.html">Razer BlackWidow Chroma Keyboard</a></td>
+					
+					
+						<td class="item-name">
+						<a th:href="@{'/showItemDetail/detail?id='+${item.id}}"><span th:text="${item.name}"></span></a>
+						</td>
 						<td class="item-price" th:text="${item.price}">52.0</td>
-						<td class="item-category" th:text="${item.nameAll}"><a
-							href="">Electronics</a> / <a href="">Computers &amp; Tablets</a>
-							/ <a href="">Components &amp; Parts</a></td>
+						
+						<td class="item-category" >
+						
+					    <a th:href="@{'/showList/?name1='+${item.daiCategory}}">
+						<span th:text="${item.daiCategory}" >
+              			</span>
+              			</a>			
+						
+						<a th:href="@{'/showList/?name2='+${item.tyuCategory} + '&name1=' + ${item.daiCategory}}">
+						<span th:text="${item.tyuCategory}" ></span>
+						</a>
+						
+						<a th:href="@{'/showList/?name3='+${item.syouCategory}+'&name1=' + ${item.daiCategory}+'&name2='+${item.tyuCategory}}">
+						<span th:text="${item.syouCategory}" ></span>
+						</a>
+						
+						</td>
 						<td class="item-brand" th:text="${item.brand}"><a href="">Razer</a></td>
-						<td class="item-condition" th:text="${item.condition}">3</td>
+						<td class="item-condition" th:text="${item.conditionId}">3</td>
 					</tr>
 				</tbody>
 			</table>
@@ -180,9 +206,9 @@
 			<nav class="page-nav">
 				<ul class="pager">
 
-					<li class="previous"><a th:href="@{'/?page='+${nowPage-1}}">&larr;
+					<li class="previous"><a th:href="@{'/showList?page='+${nowPage-1}}">&larr;
 							prev</a></li>
-					<li class="next"><a th:href="@{'/?page='+${nowPage+1}}">&larr;
+					<li class="next"><a th:href="@{'/showList?page='+${nowPage+1}}">&larr;
 							next</a></li>
 
 				</ul>
@@ -190,7 +216,7 @@
 			<!-- ページ番号を指定して表示するフォーム -->
 			<div id="select-page">
 
-				<form class="form-inline" th:action="@{/}">
+				<form class="form-inline" th:action="@{/showList}">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
 							<label></label> <input type="text" name="page"

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html  lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -10,13 +10,16 @@
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
     integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
-  <link rel="stylesheet" href="./mercari.css"/>
+  <link rel="stylesheet" th:href="@{/css/mercari.css}">
+  <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+  
   <!-- script -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <title>Rakus Items</title>
 </head>
+
 <body>
   <!-- navbar -->
   <nav class="navbar navbar-inverse">
@@ -49,31 +52,31 @@
         <tbody>
           <tr>
             <th>ID</th>
-            <td>1</td>
+            <td th:text="${itemDetail.id}"></td>
           </tr>
           <tr>
             <th>name</th>
-            <td>Razer BlackWidow Chroma Keyboard</td>
+            <td th:text="${itemDetail.name}">Razer BlackWidow Chroma Keyboard</td>
           </tr>
           <tr>
             <th>price</th>
-            <td>$52.0</td>
+            <td th:text="${itemDetail.price}">$52.0</td>
           </tr>
           <tr>
             <th>category</th>
-            <td>Electronics / Computers &amp; Tablets / Components &amp; Parts</td>
+            <td th:text="${itemDetail.category}">Electronics / Computers &amp; Tablets / Components &amp; Parts</td>
           </tr>
           <tr>
             <th>brand</th>
-            <td>Razer</td>
+            <td th:text="${itemDetail.brand}">Razer</td>
           </tr>
           <tr>
             <th>condition</th>
-            <td>3</td>
+            <td th:text="${itemDetail.condition}">3</td>
           </tr>
           <tr>
             <th>description</th>
-            <td>I realized his pants are on backwards after the picture. They were very dirty so I hand washed them. He has a stuffed body and painted porcelain head, hands and feet. Back before clowns were too scary. 9"" tall. No chips or cracks but minor paint loss in a few places. Clown Circus Doll Collectible</td>
+            <td th:text="${itemDetail.description}">I realized his pants are on backwards after the picture. They were very dirty so I hand washed them. He has a stuffed body and painted porcelain head, hands and feet. Back before clowns were too scary. 9"" tall. No chips or cracks but minor paint loss in a few places. Clown Circus Doll Collectible</td>
           </tr>
         </tbody>
       </table>

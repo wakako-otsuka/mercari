@@ -34,8 +34,8 @@ public class CategoryService {
 	 * 中カテゴリーの一覧.
 	 * @return
 	 */
-	public List<Category> tyuCategoryList(String daiName){
-		return categoryRepository.loadByTyu(daiName);
+	public List<Category> tyuCategoryList(String name){
+		return categoryRepository.loadByTyu(name);
 	}
 	
 	/**
@@ -47,5 +47,6 @@ public class CategoryService {
 		 return categoryRepository.loadBySyou(name1,name2); 
 	 }
 	 
+	
 	
 	}

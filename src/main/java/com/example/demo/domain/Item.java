@@ -31,9 +31,6 @@ public class Item {
 	
 	/**説明*/
 	private String description;
-	
-    /**全てのカテゴリー名*/
-    private String nameAll;
 
 	public Integer getId() {
 		return id;
@@ -99,21 +96,12 @@ public class Item {
 		this.description = description;
 	}
 
-	public String getNameAll() {
-		return nameAll;
-	}
-
-	public void setNameAll(String nameAll) {
-		this.nameAll = nameAll;
-	}
-
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", condition=" + condition + ", category=" + category + ", brand="
-				+ brand + ", price=" + price + ", shipping=" + shipping + ", description=" + description + ", nameAll="
-				+ nameAll + "]";
+				+ brand + ", price=" + price + ", shipping=" + shipping + ", description=" + description + "]";
 	}
-    
-    
+	
+   
 
 }

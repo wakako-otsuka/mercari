@@ -22,7 +22,7 @@ import com.example.demo.service.ShowItemListService;
  * @author otsuka
  *
  */
-@Controller("")
+@Controller
 @RequestMapping("/category")
 public class CategoryController {
 	
@@ -32,13 +32,15 @@ public class CategoryController {
 	@Autowired
 	private ShowItemListService showItemListService;
 	
+	
+	
 	 
 	 /**
 	  * 中カテゴリのプルダウンメソット.
 	 * @param value
 	 * @return
 	 */
-	@RequestMapping(value="/dai/{value}",method=RequestMethod.GET,produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="showList/{value}",method=RequestMethod.GET,produces="text/plain;charset=UTF-8")
 	 @ResponseBody
 	 public String changePulldown(@PathVariable("value")String value) {
 		 String val=value;
@@ -75,7 +77,7 @@ public class CategoryController {
 	 * @param value2
 	 * @return
 	 */
-	@RequestMapping(value="/tyu/{value1}/{value2}", method=RequestMethod.GET,produces="text/plain;charset=UTF-8")
+	@RequestMapping(value="showList/{value1}/{value2}", method=RequestMethod.GET,produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String changePulldown(@PathVariable("value1")String value1,@PathVariable("value2")String value2) {
 		String name1=value1;
